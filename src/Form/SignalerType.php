@@ -9,7 +9,6 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Validator\Constraints\Email;
 
 class SignalerType extends AbstractType
 {
@@ -37,19 +36,6 @@ class SignalerType extends AbstractType
                 'label_attr' => ['class' => 'block text-sm font-medium text-gray-700'],
                 'constraints' => [
                     new NotBlank(['message' => 'Le nom est obligatoire'])
-                ]
-            ])
-
-            ->add('email', EmailType::class, [
-                'attr' => [
-                    'class' => 'mt-1 mb-4 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500',
-                    'placeholder' => 'votre@email.com',
-                ],
-                'label' => 'Email',
-                'label_attr' => ['class' => 'block text-sm font-medium text-gray-700'],
-                'constraints' => [
-                    new NotBlank(['message' => 'L\'email est obligatoire']),
-                    new Email(['message' => 'Veuillez entrer un email valide'])
                 ]
             ])
 

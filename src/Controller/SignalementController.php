@@ -41,4 +41,28 @@ final class SignalementController extends AbstractController
             'form' => $formSignalement->createView(),
         ]);
     }
+
+    #[Route('/signalement/{id}', name: 'show_signalement')]
+    public function show(Request $request, string $id): Response
+    {
+        $signalement = [
+            'title' => 'titre du signalement',
+            'auteur' => [
+                'prenom' => 'Farba',
+                'nom' => 'KANE',
+            ],
+            'adresse' => '83 rue de la ville',
+            'coordonnees' => [
+                'longitude' => 2.34578,
+                'latitude' => 3.45536,
+            ],
+            'commentaire' => 'je suis un commentaire de farba',
+            'picture' => 'https://randomcity.net/wp-content/uploads/2024/06/4095_juizdefora_Brazil-1024x768.jpg',
+        ];
+
+        // Affichage du formulaire
+        return $this->render('signalement/show.html.twig', [
+            'signalement' => $signalement,
+        ]);
+    }
 }

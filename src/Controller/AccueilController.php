@@ -11,35 +11,43 @@ final class AccueilController extends AbstractController
     #[Route('/', name: 'app_accueil')]
     public function index(): Response
     {
-        $signalements = [
+        $signalement = [
             [
-                'prenom' => 'Farba',
-                'nom' => 'KANE',
-                'email' => 'farba@kane.com',
-                'message' => 'je suis un message de farba',
-                'signalAdresse' => [
-                    'rue' => '83 rue de la ville',
-                    'codePostal' => '75001',
-                    'ville' => 'Paris',
-                    'picture' => 'https://randomcity.net/wp-content/uploads/2024/06/4095_juizdefora_Brazil-1024x768.jpg'
-                ]
+                'id' => '1',
+                'title' => 'titre du signalement',
+                'auteur' => [
+                    'prenom' => 'Farba',
+                    'nom' => 'KANE',
+                ],
+                'adresse' => '83 rue de la ville',
+                'coordonnees' => [
+                    'longitude' => 2.34578,
+                    'latitude' => 3.45536,
+                ],
+                'commentaire' => 'je suis un commentaire de farba',
+                'picture' => 'https://randomcity.net/wp-content/uploads/2024/06/4095_juizdefora_Brazil-1024x768.jpg',
             ],
             [
-                'prenom' => 'Maymuna',
-                'nom' => 'GAMBONI',
-                'email' => 'maymuna@gamboni.com',
-                'message' => 'je suis un message de maymuna',
-                'signalAdresse' => [
-                    'rue' => '83 rue de la ville',
-                    'codePostal' => '69001',
-                    'ville' => 'Lyon',
-                    'picture' => 'https://randomcity.net/wp-content/uploads/2024/06/4095_juizdefora_Brazil-1024x768.jpg'
-                ]
+                'id' => '2',
+                'title' => 'titre du signalement',
+                'auteur' => [
+                    'prenom' => 'Farba',
+                    'nom' => 'KANE',
+                ],
+                'adresse' => '83 rue de la ville',
+                'coordonnees' => [
+                    'longitude' => 2.34578,
+                    'latitude' => 3.45536,
+                ],
+                'commentaire' => 'je suis un commentaire de maymuna',
+                'picture' => 'https://randomcity.net/wp-content/uploads/2024/06/4095_juizdefora_Brazil-1024x768.jpg',
             ]
         ];
 
         return $this->render('accueil/index.html.twig', [
-            'signalement' => $signalements
+            'signalements' => $signalement
+
         ]);
+
     }
 }

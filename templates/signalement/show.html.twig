@@ -1,0 +1,12 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{{ signalement.title }}{% endblock %}
+
+{% block body %}
+    <div class="max-w-3xl mx-auto py-8 px-4">
+        <h1>{{ signalement.title }}</h1>
+        <h2>{{ signalement.auteur.prenom }}</h2>
+        <p>{{ signalement.adresse }}</p>
+        <p>{{ signalement.commentaire }}</p>
+    </div>
+{% endblock %}

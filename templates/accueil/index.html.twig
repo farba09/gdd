@@ -3,5 +3,16 @@
 {% block title %}Hello AccueilController!{% endblock %}
 
 {% block body %}
+    <div class="max-w-3xl mx-auto py-8 px-4">
+        <ul>
+            {% for signalement in signalements %}
+                <a href="{{ path('show_signalement', {id: signalement.id}) }}" class="flex flex-col mb-6">
+                    <h3 class="font-semibold">{{ signalement.auteur.prenom }}</h3>
+                    <p>{{ signalement.commentaire }}</p>
 
+                    <img class="w-36 h-36" src="{{ signalement.picture }}" alt=""/>
+                </a>
+            {% endfor %}
+        </ul>
+    </div>
 {% endblock %}
