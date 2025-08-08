@@ -2,36 +2,52 @@
 
 namespace App\Entity;
 
-use App\Repository\SignalementRepository;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\Entity(repositoryClass: SignalementRepository::class)]
+#[ORM\Entity(repositoryClass: "App\Repository\SignalementRepository")]
+#[ORM\HasLifecycleCallbacks]
 class Signalement
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
-    #[Constraints]
+    #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\NotBlank(message: "Le titre est obligatoire")]
+    #[Assert\Length(
+        max: 255,
+        maxMessage: "Le titre ne peut pas dépasser {{ limit }} caractères"
+    )]
     private ?string $title = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\NotBlank(message: "L'adresse est obligatoire")]
     private ?string $adresse = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type: 'float')]
+    #[Assert\NotBlank(message: "La longitude est obligatoire")]
     private ?float $longitude = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type: 'float')]
+    #[Assert\NotBlank(message: "La latitude est obligatoire")]
     private ?float $latitude = null;
 
-    #[ORM\Column(type: Types::TEXT)]
+    #[ORM\Column(type: 'text')]
+    #[Assert\NotBlank(message: "Le commentaire est obligatoire")]
     private ?string $commentaire = null;
 
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $picture = null;
+
+    #[ORM\Column(type: 'datetime')]
+    private ?\DateTimeInterface $createdAt = null;
+
+    #[ORM\Column(type: 'datetime', nullable: true)]
+    private ?\DateTimeInterface $updatedAt = null;
+
+    // Getters et Setters
 
     public function getId(): ?int
     {
@@ -43,10 +59,9 @@ class Signalement
         return $this->title;
     }
 
-    public function setTitle(string $title): static
+    public function setTitle(string $title): self
     {
         $this->title = $title;
-
         return $this;
     }
 
@@ -55,10 +70,9 @@ class Signalement
         return $this->adresse;
     }
 
-    public function setAdresse(string $adresse): static
+    public function setAdresse(string $adresse): self
     {
         $this->adresse = $adresse;
-
         return $this;
     }
 
@@ -67,10 +81,9 @@ class Signalement
         return $this->longitude;
     }
 
-    public function setLongitude(float $longitude): static
+    public function setLongitude(float $longitude): self
     {
         $this->longitude = $longitude;
-
         return $this;
     }
 
@@ -79,10 +92,9 @@ class Signalement
         return $this->latitude;
     }
 
-    public function setLatitude(float $latitude): static
+    public function setLatitude(float $latitude): self
     {
         $this->latitude = $latitude;
-
         return $this;
     }
 
@@ -91,10 +103,9 @@ class Signalement
         return $this->commentaire;
     }
 
-    public function setCommentaire(string $commentaire): static
+    public function setCommentaire(string $commentaire): self
     {
         $this->commentaire = $commentaire;
-
         return $this;
     }
 
@@ -103,10 +114,31 @@ class Signalement
         return $this->picture;
     }
 
-    public function setPicture(?string $picture): static
+    public function setPicture(?string $picture): self
     {
         $this->picture = $picture;
-
         return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    #[ORM\PrePersist]
+    public function setCreatedAtValue(): void
+    {
+        $this->createdAt = new \DateTimeImmutable();
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    #[ORM\PreUpdate]
+    public function setUpdatedAtValue(): void
+    {
+        $this->updatedAt = new \DateTimeImmutable();
     }
 }

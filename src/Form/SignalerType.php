@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Signalement;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -15,41 +16,56 @@ class SignalerType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('firstname', TextType::class, [
-                'attr' => [
-                    'class' => 'mt-1 mb-4 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500',
-                    'placeholder' => 'Votre prénom',
-                ],
-                'label' => 'Prénom',
-                'label_attr' => ['class' => 'block text-sm font-medium text-gray-700'],
-                'constraints' => [
-                    new NotBlank(['message' => 'Le prénom est obligatoire'])
-                ]
-            ])
-
-            ->add('lastname', TextType::class, [
-                'attr' => [
-                    'class' => 'mt-1 mb-4 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500',
-                    'placeholder' => 'Votre nom',
-                ],
-                'label' => 'Nom',
-                'label_attr' => ['class' => 'block text-sm font-medium text-gray-700'],
-                'constraints' => [
-                    new NotBlank(['message' => 'Le nom est obligatoire'])
-                ]
-            ])
-
-            ->add('message', TextareaType::class, [
+            ->add('title', TextType::class, [
                 'attr' => [
                     'class' => 'mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500',
                     'rows' => 4,
-                    'placeholder' => 'Votre message...'
+                    'placeholder' => 'Titre de votre signalement'
                 ],
-                'label' => 'Message',
+                'label' => 'Titre',
                 'label_attr' => ['class' => 'block text-sm font-medium text-gray-700'],
-                'constraints' => [
-                    new NotBlank(['message' => 'Le message ne peut pas être vide'])
-                ]
+            ])
+            ->add('adresse', TextType::class, [
+                'attr' => [
+                    'class' => 'mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500',
+                    'placeholder' => 'Adresse postale'
+                ],
+                'label' => 'Adresse',
+                'label_attr' => ['class' => 'block text-sm font-medium text-gray-700'],
+            ])
+            ->add('longitude', TextType::class, [
+                'attr' => [
+                    'class' => 'mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500',
+                    'placeholder' => 'Longitude (ex : 2.3456)'
+                ],
+                'label' => 'Longitude',
+                'label_attr' => ['class' => 'block text-sm font-medium text-gray-700'],
+            ])
+            ->add('latitude', TextType::class, [
+                'attr' => [
+                    'class' => 'mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500',
+                    'placeholder' => 'Latitude (ex : 48.8566)'
+                ],
+                'label' => 'Latitude',
+                'label_attr' => ['class' => 'block text-sm font-medium text-gray-700'],
+            ])
+            ->add('picture', TextType::class, [
+                'required' => false,
+                'attr' => [
+                    'class' => 'mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500',
+                    'placeholder' => 'URL de l’image (optionnelle)'
+                ],
+                'label' => 'Image (URL)',
+                'label_attr' => ['class' => 'block text-sm font-medium text-gray-700'],
+            ])
+            ->add('commentaire', TextareaType::class, [
+                'attr' => [
+                    'class' => 'mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500',
+                    'rows' => 4,
+                    'placeholder' => 'Votre commentaire...'
+                ],
+                'label' => 'Commentaire',
+                'label_attr' => ['class' => 'block text-sm font-medium text-gray-700'],
             ]);
     }
 
@@ -57,13 +73,13 @@ class SignalerType extends AbstractType
     {
         $resolver->setDefaults([
             // Désactive la liaison à une entité spécifique
-            'data_class' => null,
+            "data_class" => Signalement::class
 
             // Autorise la validation sans entité
-            'csrf_protection' => true,
-            'csrf_field_name' => '_token',
-            'csrf_token_id'   => 'signaler_form',
-            'translation_domain' => false,
+            // 'csrf_protection' => true,
+            // 'csrf_field_name' => '_token',
+            // 'csrf_token_id'   => 'signaler_form',
+            // 'translation_domain' => false,
         ]);
     }
 }
